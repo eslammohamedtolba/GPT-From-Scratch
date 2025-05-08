@@ -1,5 +1,4 @@
 # Transformer from Scratch
-
 This repository implements the Transformer architecture from scratch, inspired by the seminal paper [Attention Is All You Need](https://arxiv.org/abs/1706.03762) by Vaswani et al. Unlike typical PyTorch workflows, this project **avoids using high-level APIs like `torch.nn.Transformer`** to give you a complete understanding of the inner workings of the model.
 
 ![Transformer Architecture](<Transformer Architecture.png>)
@@ -8,28 +7,18 @@ This repository implements the Transformer architecture from scratch, inspired b
 
 ## 📌 Objectives
 
-- Understand the core components of the Transformer architecture.
-- Build each component from scratch:
-  - [x] Tokenizer & Data Loader  
-  - [x] Token and Positional Embeddings  
-  - [x] Scaled Dot-Product Attention  
-  - [ ] Multi-Head Attention  
-  - [ ] Feedforward Network  
-  - [ ] Encoder and Decoder Layers  
-  - [ ] Full Transformer Model  
-  - [ ] Training and Evaluation  
+* Understand the core components of the Transformer architecture.
+* Build each component from scratch:
+  * <span style="color:green">[X]</span> Tokenizer & Data Loader
+  * <span style="color:green">[X]</span> Token and Positional Embeddings
+  * <span style="color:green">[X]</span> Scaled Dot-Product Attention
+  * <span style="color:green">[X]</span> Multi-Head Attention
+  * <span style="color:red">[X]</span> Feedforward Network
+  * <span style="color:red">[X]</span> Encoder and Decoder Layers
+  * <span style="color:red">[X]</span> Full Transformer Model
+  * <span style="color:red">[X]</span> Training and Evaluation
 
 > ✅ Completed steps are already implemented in the notebook. The rest are in progress.
-
----
-
-## 📁 Project Structure
-
-```bash
-.
-├── transformer_from_scratch.ipynb  # Main implementation notebook
-├── README.md                       # Project documentation
-```
 
 ---
 
@@ -59,13 +48,20 @@ The notebook uses a plain-text sample from the book *The Verdict*, available at:
 - Scaling and softmax applied
 - Visualization using `seaborn.heatmap`
 
+### 5. Multi-Head Attention
+* Implemented `self_attention` class with query, key, and value matrices
+* Implemented `masked_self_attention` to apply causal masking for autoregressive modeling
+* Implemented `multihead_attention` class combining multiple attention heads
+* Demonstrated multi-head attention output on positionally encoded embeddings
+
 ---
 
 ## 🚧 Work in Progress
 
-- `MultiHeadAttention` class (being implemented next)
-- Modular and reusable PyTorch layers
-- Support for training and evaluation pipelines
+* Feedforward Network
+* Encoder and Decoder Layers
+* Full Transformer Model
+* Training and Evaluation pipelines
 
 ---
 
@@ -81,7 +77,6 @@ To demystify the internals of Transformer models by building everything from the
 - NumPy
 - Requests
 - Seaborn
-- (Later: PyTorch)
 
 Install them using:
 
