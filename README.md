@@ -1,7 +1,7 @@
 # Transformer from Scratch
 This repository implements the Transformer architecture from scratch, inspired by the seminal paper [Attention Is All You Need](https://arxiv.org/abs/1706.03762) by Vaswani et al. Unlike typical PyTorch workflows, this project **avoids using high-level APIs like `torch.nn.Transformer`** to give you a complete understanding of the inner workings of the model.
 
-![Transformer Architecture](<Transformer Architecture.png>)
+![GPT Block](<GPT Block.png>)
 
 ---
 
