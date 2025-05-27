@@ -1,85 +1,149 @@
-# Transformer from Scratch
-This repository implements the Transformer architecture from scratch, inspired by the seminal paper [Attention Is All You Need](https://arxiv.org/abs/1706.03762) by Vaswani et al. Unlike typical PyTorch workflows, this project **avoids using high-level APIs like `torch.nn.Transformer`** to give you a complete understanding of the inner workings of the model.
+# GPT from Scratch: A Step-by-Step Implementation 
+
+This repository provides a clear and organized implementation of a simplified GPT (Generative Pre-trained Transformer) model from scratch using PyTorch. The goal is to understand the core components and mechanisms behind transformer-based language models by building one in a modular and educational manner.
 
 ![GPT Block](<GPT Block.png>)
 
 ---
 
-## 📌 Objectives
+## 🎯 Overview
 
-* Understand the core components of the Transformer architecture.
-* Build each component from scratch:
-  * <span style="color:green">[X]</span> Tokenizer & Data Loader
-  * <span style="color:green">[X]</span> Token and Positional Embeddings
-  * <span style="color:green">[X]</span> Scaled Dot-Product Attention
-  * <span style="color:green">[X]</span> Multi-Head Attention
-  * <span style="color:red">[X]</span> Feedforward Network
-  * <span style="color:red">[X]</span> Encoder and Decoder Layers
-  * <span style="color:red">[X]</span> Full Transformer Model
-  * <span style="color:red">[X]</span> Training and Evaluation
+This implementation walks through the complete process of building a GPT model from the ground up, covering:
 
-> ✅ Completed steps are already implemented in the notebook. The rest are in progress.
+### 1. **Data Preparation**
+- Load raw text data from an online source
+- Implement a simple tokenizer to convert text into tokens with special tokens for unknown words, beginning/end of sequence, and padding
+- Create a custom data loader to generate training batches with sliding windows over token sequences
 
----
+### 2. **Core Components**
+- Define token embeddings and positional embeddings to represent input tokens in vector space
+- Implement masked multi-head self-attention to allow the model to attend to previous tokens only (causal masking)
+- Build essential building blocks such as Layer Normalization, GELU activation, and Feedforward networks
 
-## 📚 Dataset
+### 3. **Transformer Block**
+- Combine multi-head attention and feedforward layers with residual connections and dropout for regularization
+- Stack these components to form a single transformer block
 
-The notebook uses a plain-text sample from the book *The Verdict*, available at:  
-[https://raw.githubusercontent.com/rasbt/LLMs-from-scratch/main/ch02/01_main-chapter-code/the-verdict.txt](https://raw.githubusercontent.com/rasbt/LLMs-from-scratch/main/ch02/01_main-chapter-code/the-verdict.txt)
-
----
-
-## ⚙️ Components Implemented So Far
-
-### 1. Data Preparation
-- Download and clean the raw text
-- Custom tokenizer (`SimpleTokenizer`) with special tokens (`<PAD>`, `<UNK>`, `<BOS>`, `<EOS>`)
-- Encoding and decoding utility
-
-### 2. Data Loader
-- Simple sliding window context-based batching (`SimpleDataLoader`)
-
-### 3. Embeddings
-- Random token embeddings
-- Positional encoding added manually
-
-### 4. Scaled Dot-Product Attention
-- Basic attention mechanism from scratch
-- Scaling and softmax applied
-- Visualization using `seaborn.heatmap`
-
-### 5. Multi-Head Attention
-* Implemented `self_attention` class with query, key, and value matrices
-* Implemented `masked_self_attention` to apply causal masking for autoregressive modeling
-* Implemented `multihead_attention` class combining multiple attention heads
-* Demonstrated multi-head attention output on positionally encoded embeddings
+### 4. **GPT Model Architecture**
+- Assemble embedding layers, transformer block, normalization, and output projection into a complete GPT model
+- The model predicts the next token in a sequence, enabling language modeling and text generation
 
 ---
 
-## 🚧 Work in Progress
+## 🔧 Technical Details
 
-* Feedforward Network
-* Encoder and Decoder Layers
-* Full Transformer Model
-* Training and Evaluation pipelines
+### Architecture Components
+- **Embedding Layer**: Converts tokens to dense vectors
+- **Positional Encoding**: Adds position information to embeddings
+- **Multi-Head Attention**: Allows model to focus on different parts of the sequence
+- **Feed-Forward Networks**: Applies non-linear transformations
+- **Layer Normalization**: Stabilizes training
+- **Residual Connections**: Helps with gradient flow
+
+### Training Features
+- **Gradient Clipping**: Prevents exploding gradients
+- **Dropout Regularization**: Reduces overfitting
+- **Validation Monitoring**: Tracks model performance
 
 ---
 
-## 🧠 Goal of This Project
+## ⚙️ Configuration
 
-To demystify the internals of Transformer models by building everything from the ground up. This implementation is meant for **educational purposes** and **experimentation**, not production use.
+The model is configured with the following hyperparameters:
+
+- **Context window size**: 10 tokens
+- **Embedding dimension**: 300
+- **Batch size**: 8
+- **Stride for sliding window**: 3
+- **Number of attention heads**: 10
+- **Number of layers**: 12
+- **Dropout rate**: 0.1
+- **Learning rate**: 5e-5
 
 ---
 
-## 🔧 Dependencies
+## 📁 Repository Structure
 
-- Python 3.8+
-- NumPy
-- Requests
-- Seaborn
-
-Install them using:
-
-```bash
-pip install numpy requests seaborn
 ```
+├── GPT Block.png              # Architecture diagram
+├── GPT_From_Scratch.ipynb     # Main implementation notebook
+└── README.md                  # This file
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+```python
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import requests
+import re
+```
+
+### Running the Code
+
+1. **Clone the repository**
+2. **Open the Jupyter notebook**: `GPT_From_Scratch.ipynb`
+3. **Run all cells sequentially** to:
+   - Load and preprocess the text data
+   - Build the model components
+   - Train the GPT model
+   - Generate text samples
+
+### Key Components Implemented
+
+#### 1. SimpleTokenizer
+- Custom tokenizer with special tokens (`<UNK>`, `<BOS>`, `<EOS>`, `<PAD>`)
+- Handles text-to-token and token-to-text conversion
+
+#### 2. SimpleDataLoader
+- Creates training batches using sliding windows
+- Handles input-target pair generation for language modeling
+
+#### 3. MaskedMultiHeadAttention
+- Implements causal self-attention mechanism
+- Prevents the model from attending to future tokens
+- Supports multiple attention heads
+
+#### 4. TransformerBlock
+- Combines attention and feedforward layers
+- Includes residual connections and layer normalization
+- Applies dropout for regularization
+
+#### 5. GPT Model
+- Complete language model architecture
+- Token and positional embeddings
+- Multiple transformer blocks
+- Output projection to vocabulary
+
+---
+
+## 📊 Model Performance
+
+The model is trained using:
+- **Loss Function**: Cross-entropy loss
+- **Optimizer**: Adam optimizer
+- **Training/Validation Split**: 90%/10%
+- **Model Size**: ~13.5M parameters (approximately 52MB)
+
+---
+
+## 🔍 Text Generation
+
+The repository includes a text generation function that:
+- Takes a seed text as input
+- Generates continuation using the trained model
+- Uses greedy decoding (argmax) for token selection
+
+---
+
+## 🤝 Contributing
+
+This is an educational project. Feel free to:
+- Fork the repository for your own learning
+- Suggest improvements to the explanations
+- Report issues with the implementation
